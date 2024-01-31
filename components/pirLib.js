@@ -26,8 +26,8 @@ class PIR {
     if (this.running) return
     log("Start")
     try {
-      this.pirChip = new this.config.libGpio.Chip(this.config.chip)
-      this.pirLine = new this.config.libGpio.Line(this.pirChip, this.config.line)
+      this.pirChip = new this.config.libgpiod.Chip(this.config.chip)
+      this.pirLine = new this.config.libgpiod.Line(this.pirChip, this.config.line)
       this.pirLine.requestInputMode()
       this.callback("PIR_STARTED")
       console.log("[MMM-Pir-gpiod] [LIB] [PIR] Started!")

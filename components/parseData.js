@@ -30,7 +30,7 @@ async function parse(that) {
     }
   }
   let pirConfig= {
-    libGpio: that.lib.onoff.Gpio,
+    libgpiod: that.lib.libgpiod,
     debug: that.config.debug,
     chip: that.config.pir_chip,
     line: that.config.pir_line,

@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/JelleHissink/MMM-Pir-gpiod",
   "dependencies": {
+    "esbuild": "^0.19.11",
     "glob": "^10.3.10",
     "magicmirror-rebuild": "^1.0.9",
     "node-libgpiod": "^0.3.2"

@@ -21,7 +21,8 @@ class SCREEN {
       displayCounter: true,
       displayBar: false,
       mode: 1,
-      gpio: 20,
+      chip: 4,
+      line: 3,
       clearGpioValue: true
     }
     this.config = Object.assign(this.default, this.config)

@@ -43,9 +43,11 @@ To display the module insert it in the config.js file.
     displayStyle: "Text",
     displayLastPresence: true,
     lastPresenceTimeFormat: "LL H:mm",
-    mode6_gpio: 20,
+    mode6_chip: 4,
+    mode6_line: 3,
     mode6_clearGpioValue: true,
-    pir_gpio: 21,
+    pir_chip: 4,
+    pir_line: 2,
     pir_reverseValue: false,
     xrandrForceRotation: "normal",
     wrandrForceRotation: "normal"
@@ -67,9 +69,11 @@ To display the module insert it in the config.js file.
  | displayStyle| Style of the Count-down. Available: "Text", "Line", "SemiCircle", "Circle", "Bar" | String | Text |
  | displayLastPresence| Display the date of the last user presence | Boolean | true |
  | lastPresenceTimeFormat| Change the date format (moment.js format) of the last presence | String | LL H:mm |
- | mode6_gpio| GPIO number for control the relay (mode 6 only) | Number | 20 |
+ | mode6_chip| Chip number for control the relay (mode 6 only) | Number | 4 |
+ | mode6_line| Line number for control the relay (mode 6 only) | Number | 3 |
  | mode6_clearGpioValue| reset GPIO value script of relay (mode 6 only) | Boolean | true |
- | pir_gpio | BCM-number of the sensor pin | Number | 21 |
+ | pir_chip | BCM-number of the sensor pin | Number | 4 |
+ | pir_line | BCM-number of the sensor pin | Number | 2 |
  | pir_reverseValue | Reverse sensor received value | Boolean | false |
  | xrandrForceRotation | **-mode 9 only-** Forces screen rotation according to the defined value (possible value: "normal", "left", "right", "inverted") | String | normal |
  | wrandrForceRotation | **-mode 10 only-** Forces screen rotation according to the defined value (possible value: "normal", "90", "180", "270", "flipped", "flipped-90", "flipped-180", "flipped-270") | String | normal |

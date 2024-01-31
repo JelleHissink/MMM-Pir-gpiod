@@ -4,7 +4,7 @@ class screenDisplayer {
     this.translate = (...args) => that.translate(...args)
     this.bar = null
     this.init = null
-    console.log("[MMM-Pir] screenDisplayer Ready")
+    console.log("[MMM-Pir-gpiod] screenDisplayer Ready")
   }
 
   prepare() {
@@ -125,7 +125,7 @@ class screenDisplayer {
       return style == this.config.displayStyle
     })
     if (!found) {
-      console.error("[MMM-Pir] displayStyle Error ! ["+ this.config.displayStyle + "]")
+      console.error("[MMM-Pir-gpiod] displayStyle Error ! ["+ this.config.displayStyle + "]")
       this.config.displayStyle = "Text"
     }
   }

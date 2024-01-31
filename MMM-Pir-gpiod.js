@@ -6,7 +6,7 @@
 
 var _logPIR = (...args) => { /* do nothing */ }
 
-Module.register("MMM-Pir", {
+Module.register("MMM-Pir-gpiod", {
     requiresVersion: "2.23.0",
     defaults: {
       debug: false,
@@ -19,16 +19,18 @@ Module.register("MMM-Pir", {
       displayStyle: "Text",
       displayLastPresence: true,
       lastPresenceTimeFormat: "LL H:mm",
-      mode6_gpio: 20,
+      mode6_chip: 4,
+      mode6_line: 3,
       mode6_clearGpioValue: true,
-      pir_gpio: 21,
+      pir_chip: 4,
+      pir_line: 2,
       pir_reverseValue: false,
       xrandrForceRotation: "normal",
       wrandrForceRotation: "normal"
     },
 
     start: function () {
-      if (this.config.debug) _logPIR = (...args) => { console.log("[MMM-Pir]", ...args) }
+      if (this.config.debug) _logPIR = (...args) => { console.log("[MMM-MMM-Pir-gpiod]", ...args) }
       this.userPresence = null
       this.lastPresence = null
       this.ready = false
@@ -82,15 +84,15 @@ Module.register("MMM-Pir", {
         case "WARNING":
           this.sendNotification("SHOW_ALERT", {
             type: "notification",
-            title: "MMM-Pir",
+            title: "MMM-Pir-gpiod",
             message: `Warning: Library not loaded: ${payload.library}`,
             timer: 15000
           })
           break
         case "FatalError":
           this.sendNotification("SHOW_ALERT", {
-            title: "MMM-Pir",
-            message: `<p>FATAL: ${payload} needed library not loaded !<br>Try to solve it with 'npm run rebuild' in MMM-Pir Folder</p>`,
+            title: "MMM-Pir-gpiod",
+            message: `<p>FATAL: ${payload} needed library not loaded !<br>Try to solve it with 'npm run rebuild' in MMM-Pir-gpiod Folder</p>`,
             timer: 0
           })
           break
@@ -98,7 +100,7 @@ Module.register("MMM-Pir", {
         case "PIR_ERROR":
           this.sendNotification("SHOW_ALERT", {
             type: "notification",
-            title: "MMM-Pir",
+            title: "MMM-Pir-gpiod",
             message: `Error detected: ${payload}`,
             timer: 15000
           })
@@ -135,13 +137,13 @@ Module.register("MMM-Pir", {
     },
 
     getStyles: function () {
-      return [ "MMM-Pir.css" ]
+      return [ "MMM-Pir-gpiod.css" ]
     },
 
     getScripts: function () {
       return [
-        "/modules/MMM-Pir/components/progressbar.js",
-        "/modules/MMM-Pir/components/screenDisplayer.js"
+        "/modules/MMM-Pir-gpiod/components/progressbar.js",
+        "/modules/MMM-Pir-gpiod/components/screenDisplayer.js"
       ]
     },
 

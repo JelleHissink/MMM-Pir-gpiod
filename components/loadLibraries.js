@@ -2,12 +2,12 @@
 var log = (...args) => { /* do nothing */ }
 
 function libraries(that) {
-  if (that.config.debug) log = (...args) => { console.log("[MMM-Pir] [DATABASE]", ...args) }
+  if (that.config.debug) log = (...args) => { console.log("[MMM-Pir-gpiod] [DATABASE]", ...args) }
   let libraries= [
     // { "library to load" : "store library name" }
     { "../components/pirLib.js": "Pir" },
     { "../components/screenLib.js": "Screen" },
-    { "onoff": "onoff" }
+    { "node-libgpiod": "libgpiod" }
   ]
   let errors = 0
   return new Promise(resolve => {
@@ -21,14 +21,14 @@ function libraries(that) {
             log("Loaded:", libraryToLoad, "->", "this.lib."+libraryName)
           }
         } catch (e) {
-          console.error("[MMM-Pir] [DATABASE]", libraryToLoad, "Loading error!" , e.message)
+          console.error("[MMM-Pir-gpiod] [DATABASE]", libraryToLoad, "Loading error!" , e.message)
           that.sendSocketNotification("WARNING" , {library: libraryToLoad })
           errors++
           that.lib.error = errors
         }
       }
     })
-    if (!errors) console.log("[MMM-Pir] [DATABASE] All libraries loaded!")
+    if (!errors) console.log("[MMM-Pir-gpiod] [DATABASE] All libraries loaded!")
     resolve(errors)
   })
 }

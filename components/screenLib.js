@@ -11,7 +11,7 @@ class SCREEN {
   constructor(config, callback) {
     this.config = config
     this.sendSocketNotification = callback
-    if (this.config.debug) log = (...args) => { console.log("[MMM-Pir] [LIB] [SCREEN]", ...args) }
+    if (this.config.debug) log = (...args) => { console.log("[MMM-Pir-gpiod] [LIB] [SCREEN]", ...args) }
     this.PathScript = path.dirname(require.resolve('../package.json'))+"/scripts"
     this.interval = null
     this.default = {
@@ -42,53 +42,53 @@ class SCREEN {
     if (this.config.turnOffDisplay) {
       switch (this.config.mode) {
         case 0:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 0: Disabled")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 0: Disabled")
           break
         case 1:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 1: vcgencmd")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 1: vcgencmd")
           break
         case 2:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 2: dpms rpi")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 2: dpms rpi")
           break
         case 3:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 3: tvservice")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 3: tvservice")
           break
         case 4:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 4: HDMI CEC")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 4: HDMI CEC")
           break
         case 5:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 5: dpms linux")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 5: dpms linux")
           break
         case 6:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 6: Python script (Relay on/off)")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 6: Python script (Relay on/off)")
           break
         case 7:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 7: Python script reverse (Relay on/off)")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 7: Python script reverse (Relay on/off)")
           break
         case 8:
-          console.log("[MMM-Pir] [LIB] [SCREEN] Mode 8: ddcutil")
+          console.log("[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 8: ddcutil")
           break
         case 9:
           if (this.xrandrRoation.indexOf(this.config.xrandrForceRotation) == -1) {
-            console.error(`[MMM-Pir] [LIB] [SCREEN] Mode 9: xrandr invalid Rotation --> ${this.config.xrandrForceRotation}, Set to default: normal`)
+            console.error(`[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 9: xrandr invalid Rotation --> ${this.config.xrandrForceRotation}, Set to default: normal`)
             this.screen.xrandrRotation = "normal"
           } else {
-            console.log(`[MMM-Pir] [LIB] [SCREEN] Mode 9: xrandr (primary display) -- Rotation: ${this.config.xrandrForceRotation}`)
+            console.log(`[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 9: xrandr (primary display) -- Rotation: ${this.config.xrandrForceRotation}`)
             this.screen.xrandrRotation = this.config.xrandrForceRotation
           }
           break
         case 10:
           if (this.wrandrRoation.indexOf(this.config.wrandrForceRotation) == -1) {
-            console.error(`[MMM-Pir] [LIB] [SCREEN] Mode 10: wlr-randr invalid Rotation --> ${this.config.wrandrForceRotation}, Set to default: normal`)
+            console.error(`[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 10: wlr-randr invalid Rotation --> ${this.config.wrandrForceRotation}, Set to default: normal`)
             this.screen.wrandrRotation = "normal"
           } else {
-            console.log(`[MMM-Pir] [LIB] [SCREEN] Mode 10: wlr-randr (primary display) -- Rotation: ${this.config.wrandrForceRotation}`)
+            console.log(`[MMM-Pir-gpiod] [LIB] [SCREEN] Mode 10: wlr-randr (primary display) -- Rotation: ${this.config.wrandrForceRotation}`)
             this.screen.wrandrRotation = this.config.wrandrForceRotation
           }
           break
         default:
           this.logError("Unknow Mode Set to 0 (Disabled)")
-          this.sendSocketNotification("ERROR", "[MMM-Pir] Unknow Mode (" + this.config.mode + ") Set to 0 (Disabled)")
+          this.sendSocketNotification("ERROR", "[MMM-Pir-gpiod] Unknown Mode (" + this.config.mode + ") Set to 0 (Disabled)")
           this.config.mode = 0
           break
       }
@@ -99,8 +99,8 @@ class SCREEN {
     if (!this.config.turnOffDisplay && !this.config.ecoMode) return log("Disabled.")
     process.on('exit', (code) => {
       if (this.config.turnOffDisplay && this.config.mode) this.setPowerDisplay(true)
-      console.log('[MMM-Pir] [LIB] [SCREEN] See you soon !')
-      console.log('[MMM-Pir] [LIB] [SCREEN] @bugsounet')
+      console.log('[MMM-Pir-gpiod] [LIB] [SCREEN] See you soon !')
+      console.log('[MMM-Pir-gpiod] [LIB] [SCREEN] @bugsounet')
     })
     this.start()
   }
@@ -485,7 +485,7 @@ class SCREEN {
   }
 
   logError(err) {
-    console.error("[MMM-Pir] [LIB] [SCREEN] " + err)
+    console.error("[MMM-Pir-gpiod] [LIB] [SCREEN] " + err)
     this.sendSocketNotification("SCREEN_ERROR", err.message)
   }
 }

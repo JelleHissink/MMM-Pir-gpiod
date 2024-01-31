@@ -9,12 +9,12 @@ async function init(that) {
 }
 
 async function parse(that) {
-  if (that.config.debug) log = (...args) => { console.log("[MMM-Pir]", ...args) }
-  console.log("[MMM-Pir] Version:", require('../package.json').version, "rev:", require('../package.json').rev )
+  if (that.config.debug) log = (...args) => { console.log("[MMM-Pir-gpiod]", ...args) }
+  console.log("[MMM-Pir-gpiod] Version:", require('../package.json').version, "rev:", require('../package.json').rev )
   let bugsounet = await _load.libraries(that)
   if (bugsounet) {
-    console.error("[MMM-Pir] [DATA] Warning:", bugsounet, "needed library not loaded !")
-    console.error("[MMM-Pir] [DATA] Try to solve it with `npm run rebuild` in MMM-Pir directory")
+    console.error("[MMM-Pir-gpiod] [DATA] Warning:", bugsounet, "needed library not loaded !")
+    console.error("[MMM-Pir-gpiod] [DATA] Try to solve it with `npm run rebuild` in MMM-Pir-gpiod directory")
     that.sendSocketNotification("FatalError", bugsounet)
     return
   }
@@ -32,7 +32,8 @@ async function parse(that) {
   let pirConfig= {
     libGpio: that.lib.onoff.Gpio,
     debug: that.config.debug,
-    gpio: that.config.pir_gpio,
+    chip: that.config.pir_chip,
+    line: that.config.pir_line,
     reverseValue: that.config.pir_reverseValue
   }
 
@@ -43,7 +44,8 @@ async function parse(that) {
     displayCounter: that.config.displayCounter,
     displayBar: that.config.displayBar,
     mode: that.config.mode,
-    gpio: that.config.mode6_gpio,
+    chip: that.config.mode6_chip,
+    line: that.config.mode6_line,
     clearGpioValue: that.config.mode6_clearGpioValue,
     xrandrForceRotation: that.config.xrandrForceRotation,
     wrandrForceRotation: that.config.wrandrForceRotation
@@ -53,7 +55,7 @@ async function parse(that) {
   that.pir.start()
   that.screen = new that.lib.Screen(screenConfig, callbacks.screen)
   that.screen.activate()
-  console.log("[MMM-Pir] Started!")
+  console.log("[MMM-Pir-gpiod] Started!")
   that.sendSocketNotification("INITIALIZED")
 }
 

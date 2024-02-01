@@ -63,9 +63,17 @@ class PIR {
   }
 
   stop () {
-    if (!this.running) return
+    if (this.pirLine != null) {
+      try {
+        this.pirLine.release()
+      } catch (err) {
+        console.error("[MMM-Pir-gpiod] [CORE] STOPPING" + err)
+        this.callback("PIR_ERROR", err)
+      }
+    }
     this.pirChip = null
     this.pirLine = null
+    if (!this.running) return
     this.running = false
     this.callback("PIR_STOP")
     log("Stop")

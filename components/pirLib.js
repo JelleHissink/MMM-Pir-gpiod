@@ -41,7 +41,7 @@ class PIR {
     this.pollfunc = function () {
       if (this.running) {
         try {
-          var value = this.pir.getValue();
+          var value = this.pirLine.getValue();
           if (value != this.oldstate) {
             this.oldstate = value;
             log("Sensor read value: " + value)

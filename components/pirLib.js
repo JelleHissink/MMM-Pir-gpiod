@@ -32,6 +32,14 @@ class PIR {
       this.callback("PIR_STARTED")
       console.log("[MMM-Pir-gpiod] [LIB] [PIR] Started!")
     } catch (err) {
+      if (this.pirLine != null) {
+        try {
+          this.pirLine.release()
+          this.pirLine = null;
+        } catch (err) {
+          console.error("[MMM-Pir-gpiod] [CORE] Cleanup" + err)
+        }
+      }
       console.error("[MMM-Pir-gpiod] [LIB] [PIR] " + err)
       this.running = false
       return this.callback("PIR_ERROR", err.message)
@@ -39,9 +47,10 @@ class PIR {
     this.running = true
 
     this.pollfunc = function () {
+      var line = this.pirLine;
       if (this.running) {
         try {
-          var value = this.pirLine.getValue();
+          var value = line.getValue();
           if (value != this.oldstate) {
             this.oldstate = value;
             log("Sensor read value: " + value)
@@ -63,6 +72,12 @@ class PIR {
   }
 
   stop () {
+    if (this.running) {
+      this.running = false
+      this.callback("PIR_STOP")
+      log("Stop")
+    }
+
     if (this.pirLine != null) {
       try {
         this.pirLine.release()
@@ -73,10 +88,7 @@ class PIR {
     }
     this.pirChip = null
     this.pirLine = null
-    if (!this.running) return
-    this.running = false
-    this.callback("PIR_STOP")
-    log("Stop")
+    log("Stopped")
   }
 }
 
